@@ -127,8 +127,8 @@ class guildrequestPreview extends page_generic{
 		//Insert into DB
 		$strName = $arrInput['name']['input'];
 		$strEmail = $arrInput['email']['input'];
-		$strAuthKey = random_string(false, 40);
-		$strActivationKey = random_string(false, 32);
+		$strAuthKey = random_string(40);
+		$strActivationKey = random_string(32);
 		$arrInput['email']['input'] = register('encrypt')->encrypt($arrInput['email']['input']);
 		$arrToSave = array();
 		foreach($arrInput as $val){

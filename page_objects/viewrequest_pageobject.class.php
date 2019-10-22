@@ -112,13 +112,13 @@ class viewrequest_pageobject extends pageobject
 		if($this->in->get('gr_status', 0) === 2 && $this->config->get('create_account', 'guildrequest') && !$this->config->get('cmsbrige_active') && $row['user_id']===0){
 			$newUsername = $row['username'];
 			if($this->pdh->get('user', 'check_username', array($newUsername) == 'false')){
-				$newUsername = $newUsername.rand(100, 999);
+				$newUsername = $newUsername.mt_rand(100, 999);
 			}
 			
 			if($this->pdh->get('user', 'check_username', array($newUsername)) !== 'false' && $this->pdh->get('user', 'check_email', array($row['email'])) !== 'false'){
 				
 				$salt = $this->user->generate_salt();
-				$strPwdHash = $this->user->encrypt_password(random_string(), $salt);
+				$strPwdHash = $this->user->encrypt_password(random_string(40), $salt);
 				$newUserId = $this->pdh->put('user', 'insert_user_bridge', array($newUsername, $strPwdHash, register('encrypt')->decrypt($row['email'])));
 				
 				// Email them their new password
