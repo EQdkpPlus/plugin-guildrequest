@@ -28,7 +28,7 @@ if (!defined('EQDKP_INC')){
   +--------------------------------------------------------------------------*/
 class guildrequest extends plugin_generic {
 
-	public $version				= '1.1.10';
+	public $version				= '1.1.11';
 	public $build				= '';
 	public $copyright			= 'GodMod';
 
@@ -120,11 +120,10 @@ class guildrequest extends plugin_generic {
 				'name'	=> 'GuildRequest',
 			);
 
-			$salt = $this->user->generate_salt();
 			$strPassword = random_string(40);
-			$strPwdHash = $this->user->encrypt_password($strPassword, $salt);
+			$strPwdHash = $this->user->encrypt_password($strPassword);
 
-			$user_id = $this->pdh->put('user', 'insert_user_bridge', array($arrUserdata['name'], $strPwdHash.':'.$salt, $arrUserdata['email'], false));
+			$user_id = $this->pdh->put('user', 'insert_user_bridge', array($arrUserdata['name'], $strPwdHash, $arrUserdata['email'], false));
 			if ($user_id){
 				$this->pdh->put('user', 'add_special_user', array($user_id));
 			}

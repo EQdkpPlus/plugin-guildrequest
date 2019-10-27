@@ -117,8 +117,7 @@ class viewrequest_pageobject extends pageobject
 			
 			if($this->pdh->get('user', 'check_username', array($newUsername)) !== 'false' && $this->pdh->get('user', 'check_email', array($row['email'])) !== 'false'){
 				
-				$salt = $this->user->generate_salt();
-				$strPwdHash = $this->user->encrypt_password(random_string(40), $salt);
+				$strPwdHash = $this->user->encrypt_password(random_string(40));
 				$newUserId = $this->pdh->put('user', 'insert_user_bridge', array($newUsername, $strPwdHash, register('encrypt')->decrypt($row['email'])));
 				
 				// Email them their new password
