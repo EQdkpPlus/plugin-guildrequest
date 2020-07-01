@@ -111,7 +111,7 @@ class viewrequest_pageobject extends pageobject
 		//Auto Create Account for this user
 		if($this->in->get('gr_status', 0) === 2 && $this->config->get('create_account', 'guildrequest') && !$this->config->get('cmsbrige_active') && $row['user_id']===0){
 			$newUsername = $row['username'];
-			if($this->pdh->get('user', 'check_username', array($newUsername) == 'false')){
+			if($this->pdh->get('user', 'check_username', array($newUsername)) === 'false'){
 				$newUsername = $newUsername.mt_rand(100, 999);
 			}
 			
