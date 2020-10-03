@@ -485,7 +485,6 @@ class addrequest_pageobject extends pageobject {
 		$expr = preg_replace("/[^a-zA-Z0-9=&|?\"'\[\]() ]/", "", $expr);
 		
 		$expr = preg_replace_callback("#FIELD([0-9]*)\[(.*)\]#U", function ($treffer) {
-			d($treffer[2]);
 			$t2 = str_replace('"', '\"', $treffer[2]);
 			return "field_data[\"gr_field_".$treffer[1]."[".$t2."]\"]";
 			
