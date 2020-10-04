@@ -24,13 +24,17 @@ function gr_dep_check_radio(name, value, target){
 }
 
 function gr_hide_target(target){
-	$("#"+target).hide();
-	$("#"+target+" input[type=checkbox]").removeAttr("checked");
-	$("#"+target+" input[type=checkbox]").trigger("change");
-	$("#"+target+" input[type=radio]").removeAttr("checked");
-	$("#"+target+" input[type=radio]").trigger("change");
-	$("#"+target+" select").val("");
-	$("#"+target+" select").trigger("change");
+	if($("#"+target).is(":hidden")){
+	
+	} else {
+		$("#"+target).hide();
+		$("#"+target+" input[type=checkbox]").removeAttr("checked");
+		$("#"+target+" input[type=checkbox]").trigger("change");
+		$("#"+target+" input[type=radio]").removeAttr("checked");
+		$("#"+target+" input[type=radio]").trigger("change");
+		$("#"+target+" select").val("");
+		$("#"+target+" select").trigger("change");
+	}
 }
 
 var field_data = new Array();
