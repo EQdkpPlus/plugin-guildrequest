@@ -175,16 +175,6 @@ class addrequest_pageobject extends pageobject {
 		return;
 	}
 	
-
-	
-	//Hook for checking values
-	$arrHookResult = $this->hooks->process('gr_addrequest_formcheck', array('name' => $strName, 'email' => $strEmail, 'auth_key' => $strAuthKey, 'data' => $arrToSave), true);
-	if(isset($arrHookResult['error']) && $arrHookResult['error'] !== false){
-		$this->core->message($arrHookResult['error'], $this->user->lang('error'), 'red');
-		$this->display();
-		return;
-	}
-	
 	//Insert into DB
 	if($this->user->is_signedin()){
 		$arrInput['name']['input'] = $this->user->data['username'];
@@ -199,6 +189,14 @@ class addrequest_pageobject extends pageobject {
 	$arrToSave = array();
 	foreach($arrInput as $val){
 		$arrToSave[$val['id']] = $val['input'];
+	}
+	
+	//Hook for checking values
+	$arrHookResult = $this->hooks->process('gr_addrequest_formcheck', array('name' => $strName, 'email' => $strEmail, 'auth_key' => $strAuthKey, 'data' => $arrToSave), true);
+	if(isset($arrHookResult['error']) && $arrHookResult['error'] !== false){
+	    $this->core->message($arrHookResult['error'], $this->user->lang('error'), 'red');
+	    $this->display();
+	    return;
 	}
 	
 	$strContent = serialize($arrToSave);
